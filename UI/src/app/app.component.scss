@@ -1,0 +1,17 @@
+:host {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+mat-drawer-container {
+  flex: 1 1 auto;
+}
+
+mat-drawer {
+  width: 200px;
+}
+
+main {
+  padding: 1rem;
+}

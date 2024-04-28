@@ -1,1 +1,10 @@
-<button mat-raised-button>Click</button>
+<page-header (onMenuClicked)="menuClicked = !menuClicked" />
+
+<mat-drawer-container>
+    <mat-drawer mode="side" [opened]="menuClicked">
+        <side-nav />
+    </mat-drawer>
+    <main>
+        <router-outlet />
+    </main>
+</mat-drawer-container>
