@@ -47,5 +47,22 @@ namespace API.Controllers
             }
             return Ok("not deleted");
         }
+
+        [HttpGet("GetMonthlyTransactions")]
+        public async Task<IActionResult> GetMothlyTransactions()
+        {
+            var transactions = await Context.Transactions.ToListAsync();
+
+            var monthlyTransactions = 
+                transactions
+                .GroupBy(k => new { k.Date.Year, k.Date.Month }, 
+                         e => e,
+                         (key, group) => new { key.Year, Month = key.Month - 1, Transactions = group.ToList()})
+                .OrderByDescending(e => e.Year)
+                .ThenByDescending(e => e.Month)
+                .ToList();
+
+            return Ok(monthlyTransactions);
+        }
     }
 }

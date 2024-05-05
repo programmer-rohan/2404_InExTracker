@@ -1,0 +1,60 @@
+<h1 *ngIf="data.length == 0">No Data Found!</h1>
+
+@if (data.length > 0) {
+<mat-expansion-panel *ngFor="let monthData of data">
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            <span>{{monthData.year}}</span>
+            <span>{{monthData.month | monthName}}</span>
+        </mat-panel-title>
+
+        <mat-panel-description>
+            <div class="sg">
+                Sav:
+                <span>
+                    {{getSavings(monthData.year, monthData.month) | number}}
+                </span>
+            </div>
+            <div class="ex">
+                Ex:
+                <span>
+                    {{getExpenditure(monthData.year, monthData.month) | number}}
+                </span>
+            </div>
+            <div class="er">
+                Ear:
+                <span>
+                    {{getEarnings(monthData.year, monthData.month) | number}}
+                </span>
+            </div>
+            <div class="ps">
+                P Sav:
+                <span>
+                    {{getPreviousSavings(monthData.year, monthData.month) | number}}
+                </span>
+            </div>
+        </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <section>
+        <div class="income">
+            @if (hasIncome(monthData.transactions)) {
+            <h3>Income</h3>
+            <in-ex-table [transactions]="monthData.transactions" />
+            }
+            @else {
+            <h3>No Income in this Month!</h3>
+            }
+        </div>
+        <div class="expenditure">
+            @if (hasExpense(monthData.transactions)) {
+            <h3>Expenditure</h3>
+            <in-ex-table [transactions]="monthData.transactions" [type]="'DEBIT'" />
+            }
+            @else {
+            <h3>No Expense in this Month!</h3>
+            }
+        </div>
+    </section>
+</mat-expansion-panel>
+}

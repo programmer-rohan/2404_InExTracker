@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Transaction } from './maintenance/maintenance.component';
+import { MonthlyTransactions } from './view-data/view-data.component';
 
 @Injectable({
   providedIn: 'root',
@@ -22,5 +23,11 @@ export class ApiService {
     return this.http.delete(this.baseUrl + 'Delete/' + id, {
       responseType: 'text',
     });
+  }
+
+  getMonthlyTransactions() {
+    return this.http.get<MonthlyTransactions[]>(
+      this.baseUrl + 'GetMonthlyTransactions'
+    );
   }
 }
